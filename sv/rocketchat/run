@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#sv start socklog-unix || exit 1
+
+source /etc/envvars
+
+cd /rocketchat
+
+exec 2>&1
+exec node main.js 
