@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:16.04 as base
 
 ENV DEBIAN_FRONTEND=noninteractive \
     LANG=en_US.UTF-8 \
@@ -15,7 +15,7 @@ RUN apt-get install -y --no-install-recommends runit
 CMD export > /etc/envvars && /usr/sbin/runsvdir-start
 
 # Utilities
-RUN apt-get install -y --no-install-recommends vim less net-tools inetutils-ping wget curl git telnet nmap socat dnsutils netcat tree htop unzip sudo software-properties-common jq psmisc iproute python ssh rsync
+RUN apt-get install -y --no-install-recommends vim less net-tools inetutils-ping wget curl git telnet nmap socat dnsutils netcat tree htop unzip sudo software-properties-common jq psmisc iproute python ssh rsync gettext-base
 
 RUN apt-get install -y build-essential
 RUN apt-get install -y graphicsmagick
@@ -26,7 +26,7 @@ RUN npm install -g n
 RUN n 4.5
 
 # Rocket-Chat
-RUN wget -O - https://rocket.chat/releases/0.54.2/download | tar zx
+RUN wget -O - https://rocket.chat/releases/0.55.1/download | tar zx
 RUN mv bundle rocketchat
 RUN cd /rocketchat/programs/server && \
     npm install
